@@ -38,10 +38,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // Aplica el tema de la app
+            //Aplica el tema de la app
             BotonesTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    // Llama a la función principal de la app
+                    //Llama a la función principal de la app
                     BuzoApp()
                 }
             }
@@ -61,6 +61,8 @@ fun BuzoApp() {// Variables de estado
     var rotationAngle by remember { mutableFloatStateOf(270f) }
     var pezPescadoReciente by remember { mutableStateOf<Pez?>(null) } // con ? puede ser null
     var mostrarMensaje by remember { mutableStateOf(false) }
+    var precioMejoraBuzo by remember { mutableIntStateOf(100) } //Precio inicial buzo
+    var precioMejoraMochila by remember { mutableIntStateOf(200) } //Precio inicial mochila
 
     var mejorasBuzo by remember { mutableIntStateOf(0) }
     var mejorasMochila by remember { mutableIntStateOf(1) }
@@ -104,8 +106,7 @@ fun BuzoApp() {// Variables de estado
     @Composable
     fun Tienda() {
 
-        var precioMejoraBuzo by remember { mutableStateOf(100) } //Precio inicial buzo
-        var precioMejoraMochila by remember { mutableStateOf(200) } //Precio inicial mochila
+        mostrarInventario=false
 
         Box(
             modifier = Modifier
@@ -502,7 +503,8 @@ fun BuzoApp() {// Variables de estado
         }
 
         //Inventario
-        if (mostrarInventario&&!tiendaAbierta) { //asi no deja abrir inventario si la tienda esta abierta
+        if (mostrarInventario) { //asi no deja abrir inventario si la tienda esta abierta
+            tiendaAbierta=false
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -556,8 +558,10 @@ fun BuzoApp() {// Variables de estado
             }
         }
         // Mostrar la tienda cuando mostrarTienda es true y no esta abierto el inventario
-        if (tiendaAbierta&&!mostrarInventario) {
+        if (tiendaAbierta) {
+            mostrarInventario=false
             Tienda()
+
         }
 
         //Muestra el mensaje de error cuando este se aplica
