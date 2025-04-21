@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href = "css/styles.css" rel = "stylesheet"/>
+    <title>Title</title>
+</head>
+<body>
+    <h1>API REST XILTEN Movies</h1>
+    <hr>
+    <form action="/add" method="post">
+        <div>
+            <label for="movie_name" class="form-label mt-4">Nombre de la peli</label>
+            <input type="text" name="movie_name" class="form-control" id="movie_name" aria-describedby="emailHelp" placeholder="Nombre de peli">
+            <small id="emailHelp" class="form-text text-muted">Inserta una peli</small>
+        </div>
+        <input type="submit" value="Añadir peli">
+    </form>
+
+    <p th:if="${message != null}" th:text="${message}"></p>
+</body>
+</html>
